@@ -2,7 +2,7 @@
 
 Architecture is depicted as follows:
 
-![Base pipeline](https://github.com/rebremer/managed_identity_authentication/blob/master/images/Architecture.png)
+![Architecture](https://github.com/rebremer/managed_identity_authentication/blob/master/images/Architecture.png)
 
 This github expands on the following blog: https://joonasw.net/view/calling-your-apis-with-aad-msi-using-app-permissions
 
