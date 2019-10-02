@@ -114,3 +114,20 @@ Go to your Storage Account in the Portal, select "PlatForm Features", then "All 
 ![3b1. Added Managed Identity of Azure Function RBAC role \"Storage Blob Data Contributor\"](https://github.com/rebremer/managed_identity_authentication/blob/master/images/3b1_Managed_Identity_Azure_Function_ADLSgen2.png "3b1. Added Managed Identity of Azure Function RBAC role \"Storage Blob Data Contributor\"")
 
 ### 4. Configure Azure Function as REST API in ADFv2 using Managed Identity authentication ###
+
+The following steps need to be executed:
+
+- 4a. Get Function URL
+- 4b. Run pipeline with Azure Function as REST API
+
+#### 4a. Get Function URL ####
+
+Go to your Azure Function, click on your trigger and then select "Get Function URL", see also below.
+
+![4a1. Get URL of Function\"](https://github.com/rebremer/managed_identity_authentication/blob/master/images/4a1_get_Function_URL.png "4a1. Get URL of Function")
+
+#### 4b. Run pipeline with Azure Function as REST API ####
+
+Go to your Azure Data Factory, select your pipeline and deploy the Azure Data Factory described in this [tutorial](https://towardsdatascience.com/how-to-add-metadata-to-your-azure-data-lake-f8ec2022f50). Subsequently, delete the Azure Function from this pipeline and replace it with a web App. Then fill in the URL retrieved in step 4a and fill in MSI as authentication. Also, fill in the base URL as resource in the authentication. See also below.
+
+![4b1. Add web app to ADFv2 pipeline](https://github.com/rebremer/managed_identity_authentication/blob/master/images/4b1_Add_webapp_to_ADFv2_pipeline.png "4b1. Add web app to ADFv2 pipeline")
