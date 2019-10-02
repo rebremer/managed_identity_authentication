@@ -1,4 +1,4 @@
-### Authentication from Azure Data Factory to Azure Function using Managed Identity  ###
+## Authentication from Azure Data Factory to Azure Function using Managed Identity  ##
 
 Architecture is depicted as follows:
 
@@ -13,7 +13,7 @@ The following steps are executed:
 3. Grant SPN of Azure Function RBAC role "Strorage Blob Data Contributer
 4. Configure Azure Function as REST API in ADFv2 using Managed Identity authentication
 
-#### 1. Create app registration linked to the Azure Function ####
+### 1. Create app registration linked to the Azure Function ###
 
 Follow the step in this [tutorial](https://docs.microsoft.com/en-us/azure/app-service/configure-authentication-provider-aad#-configure-with-express-settings "aad#-configure-with-express-settings"): Make sure you have the following settings:
 
@@ -22,18 +22,18 @@ Follow the step in this [tutorial](https://docs.microsoft.com/en-us/azure/app-se
 
 See also screenshots below how to turn:
 
-##### 1a. AAD turned on using express settings: #####
+#### 1a. AAD turned on using express settings: ####
 
 ![AAD Express Settings](https://github.com/rebremer/managed_identity_authentication/blob/master/images/1_AAD_Express_Option.png)
 
-##### AAD turned on using express settings: #####
+#### AAD turned on using express settings: ####
 
 ![AAD turned on](https://github.com/rebremer/managed_identity_authentication/blob/master/images/1_AAD_turned_on.png)
 
-#### 2. Add SPN of ADFv2 as authorized application to SPN of app registration ####
+### 2. Add SPN of ADFv2 as authorized application to SPN of app registration ###
 
 
 
-#### 3. Grant SPN of Azure Function RBAC role "Strorage Blob Data Contributer ####
+### 3. Grant SPN of Azure Function RBAC role "Strorage Blob Data Contributer ###
 
-#### 4. Configure Azure Function as REST API in ADFv2 using Managed Identity authentication ####
+### 4. Configure Azure Function as REST API in ADFv2 using Managed Identity authentication ###
