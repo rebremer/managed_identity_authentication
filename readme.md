@@ -111,6 +111,6 @@ Go to your Azure Function in the Portal, select "PlatForm Features", then "All S
 
 Go to your Storage Account in the Portal, select "PlatForm Features", then "All Settings" and then select "Identity" and then turn on. See also below.
 
-![3b1. Added Managed Identity of Azure Function RBAC role "Storage Blob Data Contributor"](https://github.com/rebremer/managed_identity_authentication/blob/master/images/3b1_Managed_Identity_Azure_Function_ADLSgen2.png "3b1. Added Managed Identity of Azure Function RBAC role "Storage Blob Data Contributor")
+![3b1. Added Managed Identity of Azure Function RBAC role \"Storage Blob Data Contributor\"](https://github.com/rebremer/managed_identity_authentication/blob/master/images/3b1_Managed_Identity_Azure_Function_ADLSgen2.png "3b1. Added Managed Identity of Azure Function RBAC role \"Storage Blob Data Contributor\"")
 
 ### 4. Configure Azure Function as REST API in ADFv2 using Managed Identity authentication ###
