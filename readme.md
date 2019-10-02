@@ -15,10 +15,10 @@ This github expands on the following [blog](https://joonasw.net/view/calling-you
 
 The following steps need to be executed:
 
-- 1a. Create app registration linked to the Azure Function
+- 1a. Create app registration
 - 1b. Verify that AAD authentication is turned on for Azure Function
 
-#### 1a. Create app registration linked to the Azure Function####
+#### 1a. Create app registration ####
 
 Go to your Azure Function in the Portal, select "PlatForm Features", then "All Settings" and then "Authentication/Authorization". Then follow the steps in this [tutorial](https://docs.microsoft.com/en-us/azure/app-service/configure-authentication-provider-aad#-configure-with-express-settings "aad#-configure-with-express-settings"). In this, make sure that 1)App Service Plan, P1V2 is selected and 2) AAD with express settings as indicated in tutorial. See also below.
 
