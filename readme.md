@@ -1,4 +1,4 @@
-## Authentication from Azure Data Factory to Azure Function using Managed Identity  ##
+## AAD authentication from Data Factory to Azure Function using Managed Identity  ##
 
 Architecture is depicted as follows:
 
@@ -15,10 +15,7 @@ The following steps are executed:
 
 ### 1. Create app registration linked to the Azure Function ###
 
-Follow the step in this [tutorial](https://docs.microsoft.com/en-us/azure/app-service/configure-authentication-provider-aad#-configure-with-express-settings "aad#-configure-with-express-settings"): Make sure you have the following settings:
-
-1. Choose at least the following App service plan: P1V2
-2. Choose AAD with express settings as indicated in tutorial
+Follow the step in this [tutorial](https://docs.microsoft.com/en-us/azure/app-service/configure-authentication-provider-aad#-configure-with-express-settings "aad#-configure-with-express-settings"): Make sure that 1) App Service Plan: P1V2 is selected and 2) Choose AAD with express settings as indicated in tutorial.
 
 See also screenshots below how to turn:
 
