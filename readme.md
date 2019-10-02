@@ -1,4 +1,4 @@
-## AAD authentication from Data Factory to Azure Function using Managed Identity  ##
+## AAD authentication from ADFv2 to Azure Function using Managed Identity  ##
 
 In this tutorial, AAD authentication from Data Factory to Azure Function is created. It extends the following [blog](https://joonasw.net/view/calling-your-apis-with-aad-msi-using-app-permissions). The following steps are executed:
 
