@@ -15,17 +15,13 @@ The following steps are executed:
 
 ### 1. Create app registration linked to the Azure Function ###
 
-Follow the step in this [tutorial](https://docs.microsoft.com/en-us/azure/app-service/configure-authentication-provider-aad#-configure-with-express-settings "aad#-configure-with-express-settings"): Make sure that 1) App Service Plan: P1V2 is selected and 2) Choose AAD with express settings as indicated in tutorial.
+Follow the step in this [tutorial](https://docs.microsoft.com/en-us/azure/app-service/configure-authentication-provider-aad#-configure-with-express-settings "aad#-configure-with-express-settings"): Make sure that 1) App Service Plan: P1V2 is selected and 2) Choose AAD with express settings as indicated in tutorial. See also screenshots below how to turn:
 
-See also screenshots below how to turn:
+![AAD Express Settings](https://github.com/rebremer/managed_identity_authentication/blob/master/images/1_AAD_Express_Option.png "1a. AAD turned on using express settings")
 
-#### 1a. AAD turned on using express settings: ####
+End situation:
 
-![AAD Express Settings](https://github.com/rebremer/managed_identity_authentication/blob/master/images/1_AAD_Express_Option.png)
-
-#### AAD turned on using express settings: ####
-
-![AAD turned on](https://github.com/rebremer/managed_identity_authentication/blob/master/images/1_AAD_turned_on.png)
+![AAD turned on](https://github.com/rebremer/managed_identity_authentication/blob/master/images/1_AAD_turned_on.png "AAD turned on using express settings")
 
 ### 2. Add SPN of ADFv2 as authorized application to SPN of app registration ###
 
