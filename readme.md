@@ -1,17 +1,18 @@
 ## AAD authentication from ADFv2 to Azure Function using Managed Identity  ##
 
 Executing an Azure Function from an Azure Data Factory (ADFv2) pipeline is popular pattern. In every ADFv2 pipeline, security is an
-important topic. In this tutorial, the following security aspects are added:
+important topic. In this tutorial, the following security aspects are discussed:
 
 - Enable AAD authentication in Azure Function
-- Add Managed Identity of ADfv2 instace as only allowed usertthat can access Azure Function
+- Add Managed Identity of ADfv2 instance as user that can access Azure Function
+- Grant Managed of Azure Function RBAC roles to access other resources
 - Add network isolation of Azure Function, use Self-hosted Integrated Runtime to call Azure Function from ADFv2
 
 It extends the following [blog](https://joonasw.net/view/calling-your-apis-with-aad-msi-using-app-permissions). The following steps are executed:
 
 1. Create app registration linked to the Azure Function
 2. Add SPN of ADFv2 as authorized application to SPN of app registration
-3. Grant SPN of Azure Function RBAC role "Strorage Blob Data Contributor
+3. Grant SPN of Azure Function RBAC role "Storage Blob Data Contributor"
 4. Configure Azure Function as REST API in ADFv2 using Managed Identity authentication
 5. (Network isolation only) Create VNET and self-hosted integration runtime
 6. (Network isolation only) Run Azure Function with VNET from ADFv2
