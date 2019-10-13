@@ -4,7 +4,7 @@ Executing an Azure Function from an Azure Data Factory (ADFv2) pipeline is popul
 important topic. In this tutorial, the following security aspects are added:
 
 - Enable AAD authentication in Azure Function
-- Add Managed Identity of ADfv2 pipeline as only allowed user that can call Azure Function
+- Add Managed Identity of ADfv2 instace as only allowed usertthat can access Azure Function
 - Add network isolation of Azure Function, use Self-hosted Integrated Runtime to call Azure Function from ADFv2
 
 It extends the following [blog](https://joonasw.net/view/calling-your-apis-with-aad-msi-using-app-permissions). The following steps are executed:
