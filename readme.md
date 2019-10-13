@@ -169,7 +169,7 @@ The following steps need to be executed:
 - 6b. Create REST API linked service
 - 6c. Create Copy Activity and Run Azure pipeline
 
-#### 6a. Create VNET ####
+#### 6a. Add VNET as firewall rule to Azure Function ####
 
 Go to your Azure Function, click on "Platform Features" and then "Networking". Subsequently, choose "Configure Access Restrictions" and add the VNET and subnet in which the self-hosted integration runtime is deployed, see also below.
 
