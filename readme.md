@@ -1,11 +1,22 @@
 ## AAD authentication from ADFv2 to Azure Function using Managed Identity  ##
 
-In this tutorial, AAD authentication from Data Factory to Azure Function is created. It extends the following [blog](https://joonasw.net/view/calling-your-apis-with-aad-msi-using-app-permissions). The following steps are executed:
+Executing an Azure Function from an Azure Data Factory (ADFv2) pipeline is popular pattern. In every ADFv2 pipeline, security is an
+important topic. In this tutorial, the following security aspects are added:
+
+- Turn on AAD authentication in Azure Function
+- Add Managed Identity of ADfv2 pipeline as only allowed user that can call Azure Function
+- Add network isolation of Azure Function, use Self-hosted Integrated Runtime to call Azure Function from ADFv2
+
+It extends the following [blog](https://joonasw.net/view/calling-your-apis-with-aad-msi-using-app-permissions). The following steps are executed:
 
 1. Create app registration linked to the Azure Function
 2. Add SPN of ADFv2 as authorized application to SPN of app registration
-3. Grant SPN of Azure Function RBAC role "Strorage Blob Data Contributer
-4. Configure Azure Function as REST API in ADFv2 using Managed Identity authenticationArchitecture is depicted as follows:
+3. Grant SPN of Azure Function RBAC role "Strorage Blob Data Contributor
+4. Configure Azure Function as REST API in ADFv2 using Managed Identity authentication
+5. (Network isolation only) Create VNET and self-hosted integration runtime
+6. (Network isolation only) Run Azure Function with VNET from ADFv2
+
+Architecture is depicted as follows:
 
 Architecture is depicted below.
 
@@ -131,3 +142,49 @@ Go to your Azure Function, click on your trigger and then select "Get Function U
 Go to your Azure Data Factory, select your pipeline and deploy the Azure Data Factory described in this [tutorial](https://towardsdatascience.com/how-to-add-metadata-to-your-azure-data-lake-f8ec2022f50). Subsequently, delete the Azure Function from this pipeline and replace it with a web App. Then fill in the URL retrieved in step 4a and fill in MSI as authentication. Also, fill in the base URL as resource in the authentication. See also below.
 
 ![4b1. Add web app to ADFv2 pipeline](https://github.com/rebremer/managed_identity_authentication/blob/master/images/4b1_Add_webapp_to_ADFv2_pipeline.png "4b1. Add web app to ADFv2 pipeline")
+
+### 5. (Network isolation only) Create VNET and self-hosted integration runtime ###
+
+The following steps need to be executed:
+
+- 5a. Create VNET
+- 5b. Create self-hosted integration runtime in VNET
+
+#### 5a. Create VNET ####
+
+Go to the Azure Portal and create a VNET using [this tutorial](https://docs.microsoft.com/en-us/azure/virtual-network/quick-create-portal). One subnet is sufficient. Subsequently, go to your VNET, select Service Endpoints and add Microsoft.Web as allowed service endpoint, see also below.
+
+![5a1. Microsoft.Web as allowed service endpoint](https://github.com/rebremer/managed_identity_authentication/blob/master/images/5a1_Microsoft_web_service_endpoint.png "5a1. Microsoft.Web as allowed service endpoint")
+
+
+#### 5b. Create self-hosted integration runtime in VNET ####
+
+Create a self-hosted integration runtime by using [this template](https://github.com/Azure/azure-quickstart-templates/tree/master/101-vms-with-selfhost-integration-runtime). Fill in all parameters, make sure that you have at least two nodes. It can take 10 minutes before the self-hosted integrated runtime is up and runtime. You can verify this by going to your Azure Data Factory instance, going to Connections, linked services and then look up your runtimes, see also below.
+
+![5b1. Verify that self-hosted integration runtime is up and running](https://github.com/rebremer/managed_identity_authentication/blob/master/images/5b1_Check_self_hosted_integration_runtime.png "5b1. Verify that self-hosted integration runtime is up and running")
+
+### 6. (Network isolation only) Run Azure Function with VNET from ADFv2 ###
+
+The following steps need to be executed:
+
+- 6a. Add VNET as firewall rule to Azure Function
+- 6b. Create REST API linked service
+- 6c. Create Copy Activity and Run Azure pipeline
+
+#### 6a. Create VNET ####
+
+Go to your Azure Function, click on "Platform Features" and then "Networking". Subsequently, choose "Configure Access Restrictions" and add the VNET and subnet in which the self-hosted integration runtime is deployed, see also below.
+
+![6a1. Firewall rule subnet Azure function](https://github.com/rebremer/managed_identity_authentication/blob/master/images/6a1_Firewall_rule_subnet_Azure_function.png "6a1. Firewall rule subnet Azure function")
+
+#### 6b. Create REST API linked service ####
+
+In part 5 of this tutorial a Web Activity was used to call the Azure Function with managed Identity. However, a Web Activity can only be used with public endpoints, see [this link](https://docs.microsoft.com/en-us/azure/data-factory/control-flow-web-activity). Therefore, a linked service REST API is created that can be used with private endpoint. Go to your ADFv2 instance, select linked services and then REST API. Subsequently, fill in the parameters similar as was done in step 4. Make sure that you select your self-hosted integration runtime created in 5b as integration runtime, see also below.
+
+![6b1. Create REST API Azure Function SHIR](https://github.com/rebremer/managed_identity_authentication/blob/master/images/6b1_Create_REST_API_Azure_Function_SHIR.png "6b1. Create REST API Azure Function SHIR")
+
+#### 6c. Create Copy Activity and Run Azure pipeline ####
+
+Linked Service REST API is normally used in copy activity to fetch data from an external system. However, it now used to call an Azure Function. Therefore, the linked service created in 6b is addes as source in Copy Activity Destination in copy activity only created a dummy file. Pipeline can be found in [this github repo](https://github.com/rebremer/adfv2_cdm_metadata/blob/master/pipeline/BlogMetadataRESTMSIVnet.json), see also below.
+
+![6c1. Azure Function with VNET in ADFv2 pipeline](https://github.com/rebremer/managed_identity_authentication/blob/master/images/6c1_Azure_Function_VNET_ADFv2_pipeline.png "6c1. Azure Function with VNET in ADFv2 pipeline")
