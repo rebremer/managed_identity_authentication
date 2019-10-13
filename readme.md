@@ -16,8 +16,6 @@ It extends the following [blog](https://joonasw.net/view/calling-your-apis-with-
 5. (Network isolation only) Create VNET and self-hosted integration runtime
 6. (Network isolation only) Run Azure Function with VNET from ADFv2
 
-Architecture is depicted as follows:
-
 Architecture is depicted below.
 
 ![Architecture](https://github.com/rebremer/managed_identity_authentication/blob/master/images/0_Architecture.png)
