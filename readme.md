@@ -7,6 +7,7 @@ important topic. In this tutorial, the following security aspects are discussed:
 - Add Managed Identity of ADfv2 instance as user that can access Azure Function
 - Grant Managed of Azure Function RBAC roles to access other resources
 - Add network isolation of Azure Function, use Self-hosted Integrated Runtime to call Azure Function from ADFv2
+- Add firewall rule to storage account, such that only Azure Function VNET can access ADLS gen2 account
 
 It extends the following [blog](https://joonasw.net/view/calling-your-apis-with-aad-msi-using-app-permissions). The following steps are executed:
 
@@ -16,6 +17,7 @@ It extends the following [blog](https://joonasw.net/view/calling-your-apis-with-
 4. Configure Azure Function as REST API in ADFv2 using Managed Identity authentication
 5. (Network isolation only) Create VNET and self-hosted integration runtime
 6. (Network isolation only) Run Azure Function with VNET from ADFv2
+7. (Network isolation only) Add firewall rule to ADLSgen2 account of VNET from ADFv2
 
 Architecture is depicted below.
 
@@ -187,3 +189,30 @@ In part 5 of this tutorial a Web Activity was used to call the Azure Function wi
 Linked Service REST API is normally used in copy activity to fetch data from an external system. However, it now used to call an Azure Function. Therefore, the linked service created in 6b is addes as source in Copy Activity Destination in copy activity only created a dummy file. Pipeline can be found in [this github repo](https://github.com/rebremer/adfv2_cdm_metadata/blob/master/pipeline/BlogMetadataRESTMSIVnet.json), see also below.
 
 ![6c1. Azure Function with VNET in ADFv2 pipeline](https://github.com/rebremer/managed_identity_authentication/blob/master/images/6c1_Azure_Function_VNET_ADFv2_pipeline.png "6c1. Azure Function with VNET in ADFv2 pipeline")
+
+
+### 7. (Network isolation only) Add firewall rule to ADLSgen2 account of VNET from ADFv2 ###
+
+The following steps need to be executed:
+
+- 7a. Add VNet Integration to Azure Function
+- 7b. Add VNET as firewall rule to ADLS gen2
+
+#### 7a. Add VNet Integration to Azure Function ####
+
+Go to your Azure Function, click on "Platform Features" and then "Networking". Subsequently, choose "VNET integration" and add the VNET and subnet in which also the self-hosted integration runtime is deployed, see also below.
+
+![7a1. Azure Function VNET Integration](https://github.com/rebremer/managed_identity_authentication/blob/master/images/7a1_Azure_Function_VNET_Integration.png "7a1. Azure Function VNET Integration")
+
+Make sure that Service Endpoint "Storage" and Web is enabled for subnet, see also below.
+
+![7a2. Service Endpoints](https://github.com/rebremer/managed_identity_authentication/blob/master/images/7a2_subnet_service_endpoint.png "7a2. Service Endpoints")
+
+
+#### 7b. Add VNET as firewall rule to ADLS gen2 ####
+
+Go to your ADLS gen2 account, click on "Firewalls and virtual networks" and then add the VNET/subnet in which the Azure function is integrated in step 7a". Subsequently, also select "Allow trusted Microsoft Services to access this storage account" such that ADFv2 can also access the storage account (e.g. for copy activities), see also below.
+
+![7b1. Firewall rule subnet Azure function](https://github.com/rebremer/managed_identity_authentication/blob/master/images/7b1_Firewall_rule_subnet_ADLSgen2.png "7b1. Firewall rule subnet Azure functions")
+
+
