@@ -200,7 +200,7 @@ The following steps need to be executed:
 
 #### 7a. Add VNet Integration to Azure Function ####
 
-Go to your Azure Function, click on "Platform Features" and then "Networking". Subsequently, choose "VNET integration" and add the VNET and subnet in which also the self-hosted integration runtime is deployed, see also below.
+Go to your Azure Function, click on "Platform Features" and then "Networking". Subsequently, choose "VNET integration". Subsequently, add the VNET and subnet. Make sure that a different subnet is choosed in which the SHIR of step 6a runs, see also below.
 
 ![7a1. Azure Function VNET Integration](https://github.com/rebremer/managed_identity_authentication/blob/master/images/7a1_Azure_Function_VNET_Integration.png "7a1. Azure Function VNET Integration")
 
