@@ -17,7 +17,7 @@ It extends the following [blog](https://joonasw.net/view/calling-your-apis-with-
 4. Configure Azure Function as REST API in ADFv2 using Managed Identity authentication
 5. (Network isolation only) Create VNET and self-hosted integration runtime
 6. (Network isolation only) Run Azure Function with VNET from ADFv2
-7. (Network isolation only) Add firewall rule to ADLSgen2 account of VNET from ADFv2
+7. (Network isolation only) Add firewall rule to ADLSgen2 account with VNET of Azure Function
 
 Architecture is depicted below.
 
@@ -191,7 +191,7 @@ Linked Service REST API is normally used in copy activity to fetch data from an 
 ![6c1. Azure Function with VNET in ADFv2 pipeline](https://github.com/rebremer/managed_identity_authentication/blob/master/images/6c1_Azure_Function_VNET_ADFv2_pipeline.png "6c1. Azure Function with VNET in ADFv2 pipeline")
 
 
-### 7. (Network isolation only) Add firewall rule to ADLSgen2 account of VNET from ADFv2 ###
+### 7. (Network isolation only) Add firewall rule to ADLSgen2 account with VNET of Azure Function ###
 
 The following steps need to be executed:
 
