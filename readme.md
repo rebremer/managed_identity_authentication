@@ -174,13 +174,13 @@ The following steps need to be executed:
 
 #### 6a. Add VNET as firewall rule to Azure Function ####
 
-Go to your Azure Function, click on "Platform Features" and then "Networking". Subsequently, choose "Configure Access Restrictions" and add the VNET and subnet in which the self-hosted integration runtime is deployed, see also below.
+Go to your Azure Function, click on "Platform Features" and then "Networking". Subsequently, choose "Configure Access Restrictions" and add the VNET and subnet in which the self-hosted integration runtime is deployed, see also below. Alternatively, you can also whitelist the public IP addresses of the VMs on which the self-hosted integration runtime runs.
 
 ![6a1. Firewall rule subnet Azure function](https://github.com/rebremer/managed_identity_authentication/blob/master/images/6a1_Firewall_rule_subnet_Azure_function.png "6a1. Firewall rule subnet Azure function")
 
 #### 6b. Create REST API linked service ####
 
-In part 5 of this tutorial a Web Activity was used to call the Azure Function with managed Identity. However, a Web Activity can only be used with public endpoints, see [this link](https://docs.microsoft.com/en-us/azure/data-factory/control-flow-web-activity). Therefore, a linked service REST API is created that can be used with private endpoint. Go to your ADFv2 instance, select linked services and then REST API. Subsequently, fill in the parameters similar as was done in step 4. Make sure that you select your self-hosted integration runtime created in 5b as integration runtime, see also below.
+In part 5 of this tutorial a Web Activity was used to call the Azure Function with managed Identity. However, a Web Activity can only be used with public endpoints, see [this link](https://docs.microsoft.com/en-us/azure/data-factory/control-flow-web-activity). Therefore, a linked service REST API is created that can be used with the Azure Function protected with firewall rules. Go to your ADFv2 instance, select linked services and then REST API. Subsequently, fill in the parameters similar as was done in step 4. Make sure that you select your self-hosted integration runtime created in 5b as integration runtime, see also below.
 
 ![6b1. Create REST API Azure Function SHIR](https://github.com/rebremer/managed_identity_authentication/blob/master/images/6b1_Create_REST_API_Azure_Function_SHIR.png "6b1. Create REST API Azure Function SHIR")
 
@@ -207,7 +207,6 @@ Go to your Azure Function, click on "Platform Features" and then "Networking". S
 Make sure that Service Endpoint "Storage" and Web is enabled for subnet, see also below.
 
 ![7a2. Service Endpoints](https://github.com/rebremer/managed_identity_authentication/blob/master/images/7a2_subnet_service_endpoint.png "7a2. Service Endpoints")
-
 
 #### 7b. Add VNET as firewall rule to ADLS gen2 ####
 
