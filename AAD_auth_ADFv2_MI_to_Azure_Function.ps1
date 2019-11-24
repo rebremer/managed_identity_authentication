@@ -71,6 +71,5 @@ $servicePrincipal = New-AzADServicePrincipal -ApplicationId $appReg.AppId -Displ
 Set-AzureADServicePrincipal -ObjectId $servicePrincipal.Id -AppRoleAssignmentRequired $true
 
 # 7. Set MI of ADFv2 as only authorized user to log in web app (azure function) 
-
 $adfv2_resource = Get-AzDataFactoryV2 -ResourceGroupName $rg_name -Name $adfv2_name
 New-AzureADServiceAppRoleAssignment -ObjectId $adfv2_resource.Identity.PrincipalId -Id $newAppRole.Id -PrincipalId $adfv2_resource.Identity.PrincipalId -ResourceId $servicePrincipal.Id
