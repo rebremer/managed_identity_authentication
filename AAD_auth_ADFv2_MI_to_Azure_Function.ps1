@@ -17,7 +17,7 @@ $Environment = "AzureCloud"
 $aadConnection = Connect-AzureAD -AzureEnvironmentName $Environment
 
 # 1a. Deploy Azure Python function (web app)
-# See this link: https://docs.microsoft.com/bs-latn-ba/azure/azure-functions/functions-create-first-function-python
+# See this link: https://docs.microsoft.com/en-us/azure/azure-functions/functions-create-first-function-python
 
 # 1b. Get key of Azure Function
 $urlResourceName = $fun_name + "/" + $HTTPTrigger_name
