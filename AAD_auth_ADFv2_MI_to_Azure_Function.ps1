@@ -1,11 +1,13 @@
 # Powershell script to enable AAD authentication from ADFv2 to Azure Function using Managed Identity
 # Manual steps are descriped in https://github.com/rebremer/managed_identity_authentication/blob/master/readme.md
 # Make sure that you have enough rights to create app registrations in Azure AD (typically, service connections in Azure DevOps cannot do this)
+# Make also sure the Azure CLI is installed, since Azure Function in Python is created using az cli commands
 
 # 0.1 params
 $rg_name = "<<your resource group>>"
 $loc = "<<your azure location, e.g. westeurope>>"
 $fun_name = "<<your Azure Function name>>"
+$HTTPTrigger_name = "<<your HTTP trigger name of you Azure Function>>"
 $fun_stor = "<<your storage account linked to your Azure Function>>"
 $fun_app_plan = "<<your App service plan name>>"
 $adfv2_name = "<<your ADFv2 instance name>>"
@@ -14,11 +16,12 @@ $adfv2_name = "<<your ADFv2 instance name>>"
 $Environment = "AzureCloud"
 $aadConnection = Connect-AzureAD -AzureEnvironmentName $Environment
 
-# 1. create resources for web app (azure function)
-New-AzResourceGroup -Name $rg_name -Location $loc
-New-AzStorageAccount -ResourceGroupName $rg_name -AccountName $fun_stor -Location $loc -SkuName Standard_LRS
-New-AzAppServicePlan -ResourceGroupName $rg_name -Name $fun_app_plan -Location $loc -Tier "Basic" -NumberofWorkers 2 -WorkerSize "Small"
-New-AzWebApp -ResourceGroupName $rg_name -Name $fun_name -Location $loc -AppServicePlan $fun_app_plan
+# 1a. Deploy Azure Python function (web app)
+# See this link: https://docs.microsoft.com/bs-latn-ba/azure/azure-functions/functions-create-first-function-python
+
+# 1b. Get key of Azure Function
+$urlResourceName = $fun_name + "/" + $HTTPTrigger_name
+$function_key = Invoke-AzResourceAction -ResourceGroupName $rg_name -ResourceType Microsoft.Web/sites/Functions -ResourceName $urlResourceName -Action listkeys -ApiVersion 2015-08-01 -Force
 
 # 2. Creat App registration
 # step 2 is derived from https://devblogs.microsoft.com/azuregov/web-app-easy-auth-configuration-using-powershell/
