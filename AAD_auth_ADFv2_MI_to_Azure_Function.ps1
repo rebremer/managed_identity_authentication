@@ -32,7 +32,7 @@ $PasswordCredential.StartDate = $startDate
 $PasswordCredential.EndDate = $startDate.AddYears(10)
 $PasswordCredential.Value = $Password
 $identifier_url = "https://" + $fun_name + ".azurewebsites.net"
-[string[]]$reply_url = $identifier_url + ".auth/login/aad/callback"
+[string[]]$reply_url = $identifier_url + "/.auth/login/aad/callback"
 $reqAAD = New-Object -TypeName "Microsoft.Open.AzureAD.Model.RequiredResourceAccess"
 $reqAAD.ResourceAppId = "00000002-0000-0000-c000-000000000000"
 $delPermission1 = New-Object -TypeName "Microsoft.Open.AzureAD.Model.ResourceAccess" -ArgumentList "311a71cc-e848-46a1-bdf8-97ff7156d8e6","Scope" #Sign you in and read your profile
@@ -63,8 +63,9 @@ $auth.properties.defaultProvider = "AzureActiveDirectory"
 $auth.properties.isAadAutoProvisioned = "False"
 $auth.properties.clientId = $appReg.AppId
 $auth.properties.clientSecret = $Password
-$loginBaseUrl = $(Get-AzEnvironment -Name $environment).ActiveDirectoryAuthority
-$auth.properties.issuer = $issuerUrl = $loginBaseUrl + $aadConnection.Tenant.Id.Guid + "/"
+$loginBaseUrl = "https://sts.windows.net/" # $(Get-AzEnvironment -Name $environment).ActiveDirectoryAuthority
+$auth.properties.issuer = $loginBaseUrl + $aadConnection.Tenant.Id.Guid + "/"
+$auth.properties.allowedAudiences = @($identifier_url)
 New-AzResource -PropertyObject $auth.properties -ResourceGroupName $rg_name -ResourceType Microsoft.Web/sites/config -ResourceName $authResourceName -ApiVersion 2016-08-01 -Force
 
 # 5. Create SPN connected to app registration
