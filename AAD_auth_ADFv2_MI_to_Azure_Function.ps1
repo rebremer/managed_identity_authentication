@@ -63,7 +63,7 @@ $auth.properties.defaultProvider = "AzureActiveDirectory"
 $auth.properties.isAadAutoProvisioned = "False"
 $auth.properties.clientId = $appReg.AppId
 $auth.properties.clientSecret = $Password
-$loginBaseUrl = "https://sts.windows.net/" # $(Get-AzEnvironment -Name $environment).ActiveDirectoryAuthority
+$loginBaseUrl = $(Get-AzEnvironment -Name $environment).ActiveDirectoryAuthority
 $auth.properties.issuer = $loginBaseUrl + $aadConnection.Tenant.Id.Guid + "/"
 $auth.properties.allowedAudiences = @($identifier_url)
 New-AzResource -PropertyObject $auth.properties -ResourceGroupName $rg_name -ResourceType Microsoft.Web/sites/config -ResourceName $authResourceName -ApiVersion 2016-08-01 -Force
