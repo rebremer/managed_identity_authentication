@@ -22,7 +22,7 @@ az network vnet create -g $rg -n $vnet --address-prefix $addressrange/16 -l $loc
 # create NSG
 az network nsg create -g $rg -n $nsg
 
-# create rule allowing outbound to storage account WestEurope and port 443, and then block all outbound
+# create rule allowing outbound to storage account WestEurope, port 443 and AzureCloud.WestEurope, and then block all outbound
 az network nsg rule create -g $rg --nsg-name $nsg -n allow_we_stor_443 --priority 100 --source-address-prefixes VirtualNetwork --source-port-ranges '*' --destination-address-prefixes Storage.WestEurope --destination-port-ranges '443' --access Allow --protocol '*' --description "Allow storage West Europe 443" --direction Outbound
 az network nsg rule create -g $rg --nsg-name $nsg -n allow_azure_internal --priority 110 --source-address-prefixes VirtualNetwork --source-port-ranges '*' --destination-address-prefixes AzureCloud.WestEurope --destination-port-ranges '*' --access Allow --protocol '*' --description "Allow Azure internal" --direction Outbound
 #az network nsg rule create -g $rg --nsg-name $nsg -n allow_vnet_internal --priority 120 --source-address-prefixes VirtualNetwork --source-port-ranges '*' --destination-address-prefixes VirtualNetwork --destination-port-ranges '*' --access Allow --protocol '*' --description "Allow Azure internal" --direction Outbound
