@@ -34,7 +34,7 @@ az network vnet subnet create -g $rg --vnet-name $vnet -n $subnet --address-pref
 # Turn on firewall
 Update-AzStorageAccountNetworkRuleSet -ResourceGroupName $rg -Name $funstor -DefaultAction Deny
 
-# Set service endpoints for storage and SQL to subnet
+# Set service endpoints for storage and web app to subnet
 Get-AzVirtualNetwork -ResourceGroupName $rg -Name $vnet | Set-AzVirtualNetworkSubnetConfig -Name $subnet -AddressPrefix $addressrange/24 -ServiceEndpoint "Microsoft.Storage", "Microsoft.Web" | Set-AzVirtualNetwork
 
 # Add firewall rules to Storage Account
