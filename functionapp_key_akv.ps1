@@ -29,7 +29,7 @@ az keyvault create --name $akv --resource-group $rg --location $loc
 
 # set policy such that Azure Function can read from AKV
 $objectid_funname = az functionapp identity show -n $funname -g $rg --query "principalId"
-az keyvault set-policy -n $akv --secret-permissions get list --object-id $objectid_funname
+az keyvault set-policy -n $akv --secret-permissions set get list --object-id $objectid_funname
 
 # set app settings of function such that function retrieves keys from AKV instead of stor
 az functionapp config appsettings set --name $funname --resource-group $rg --settings AzureWebJobsSecretStorageKeyVaultConnectionString="" AzureWebJobsSecretStorageKeyVaultName=$akv AzureWebJobsSecretStorageType="keyvault"
