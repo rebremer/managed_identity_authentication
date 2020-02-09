@@ -70,12 +70,14 @@ az keyvault network-rule add -n $akv -g $rg --subnet $subnet --vnet-name $vnet
 # get storage connection string and add to key vault
 $storageconnectionstring = az storage account show-connection-string -n $funstor --query "connectionString"
 $keyref = az keyvault secret set -n storageconnectionstring --vault-name $akv --value $storageconnectionstring --query "id"
+$appkeyref = "@Microsoft.KeyVault(SecretUri=$keyref)"
 
 # set app settings of function such that function retrieves function keys from AKV instead of storage account
 az functionapp config appsettings set --name $funname --resource-group $rg --settings AzureWebJobsSecretStorageKeyVaultConnectionString="" AzureWebJobsSecretStorageKeyVaultName=$akv AzureWebJobsSecretStorageType="keyvault"
 
 # set app settings of function such that storage keys are retrieved from AKV instead of app settings
-az functionapp config appsettings set --name $funname --resource-group $rg --settings AzureWebJobsStorage="@Microsoft.KeyVault(SecretUri=$keyref)" AzureWebJobsDashboard="@Microsoft.KeyVault(SecretUri=$keyref)"
+az functionapp config appsettings set --name $funname --resource-group $rg --settings AzureWebJobsStorage=$appkeyref
+az functionapp config appsettings set --name $funname --resource-group $rg --settings AzureWebJobsDashboard=$appkeyref
 
 # upload code Azure Function
 Start-Sleep -s 60
