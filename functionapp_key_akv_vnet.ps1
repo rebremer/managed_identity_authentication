@@ -68,7 +68,7 @@ az keyvault set-policy -n $akv --secret-permissions set get list --object-id $ob
 az keyvault network-rule add -n $akv -g $rg --subnet $subnet --vnet-name $vnet
 
 # get storage connection string and add to key vault
-$storageconnectionstring = az storage account show-connection-string -n testfuncvnet7stor --query "connectionString"
+$storageconnectionstring = az storage account show-connection-string -n $funstor --query "connectionString"
 $keyref = az keyvault secret set -n storageconnectionstring --vault-name $akv --value $storageconnectionstring --query "id"
 
 # set app settings of function such that function retrieves function keys from AKV instead of storage account
