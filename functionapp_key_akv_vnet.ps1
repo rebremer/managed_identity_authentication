@@ -1,4 +1,4 @@
-$test = "4"
+$test = "6"
 
 $rg = "test-funcvnet" + $test + "-rg"
 $loc = "westeurope"
