@@ -1,4 +1,4 @@
-$test = "1"
+$test = "4"
 
 $rg = "test-funcvnet" + $test + "-rg"
 $loc = "westeurope"
@@ -75,7 +75,7 @@ $keyref = az keyvault secret set -n storageconnectionstring --vault-name $akv --
 az functionapp config appsettings set --name $funname --resource-group $rg --settings AzureWebJobsSecretStorageKeyVaultConnectionString="" AzureWebJobsSecretStorageKeyVaultName=$akv AzureWebJobsSecretStorageType="keyvault"
 
 # set app settings of function such that storage keys are retrieved from AKV instead of app settings
-az functionapp config appsettings set --name $funname --resource-group $rg --settings AzureWebJobsStorage="@Microsoft.KeyVault(SecretUri=$keyref)"
+az functionapp config appsettings set --name $funname --resource-group $rg --settings AzureWebJobsStorage="@Microsoft.KeyVault(SecretUri=$keyref)" AzureWebJobsDashboard="@Microsoft.KeyVault(SecretUri=$keyref)"
 
 # upload code Azure Function
 Start-Sleep -s 60
@@ -85,5 +85,5 @@ func azure functionapp publish $funname
 
 #done 
 # get function key
-$urlResourceName = $funname + "/HttpTrigger"
-$function_key = Invoke-AzResourceAction -ResourceGroupName $rg -ResourceType Microsoft.Web/sites/Functions -ResourceName $urlResourceName -Action listkeys -ApiVersion 2015-08-01 -Force
+#$urlResourceName = $funname + "/HttpTrigger"
+#$function_key = Invoke-AzResourceAction -ResourceGroupName $rg -ResourceType Microsoft.Web/sites/Functions -ResourceName $urlResourceName -Action listkeys -ApiVersion 2015-08-01 -Force
