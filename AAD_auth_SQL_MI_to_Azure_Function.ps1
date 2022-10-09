@@ -1,4 +1,4 @@
-# Powershell script to enable AAD authentication from ADFv2 to Azure Function using Managed Identity
+# Powershell script to enable AAD authentication from SQL to Azure Function using Managed Identity
 # Manual steps are descriped in https://github.com/rebremer/managed_identity_authentication/blob/master/readme.md
 # Make sure that you have enough rights to create app registrations in Azure AD (typically, service connections in Azure DevOps cannot do this)
 # Make also sure the Azure CLI is installed, since Azure Function in Python is created using az cli commands
