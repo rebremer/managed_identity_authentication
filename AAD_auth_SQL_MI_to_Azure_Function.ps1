@@ -10,7 +10,7 @@ $fun_name = "<<your Azure Function name>>"
 $HTTPTrigger_name = "<<your HTTP trigger name of you Azure Function>>"
 $fun_stor = "<<your storage account linked to your Azure Function>>"
 $fun_app_plan = "<<your App service plan name>>"
-$sql_name = "<<your SQL instance name>>"
+$sql_name = "<<your  Azure SQL name>>"
 
 # 0.2 connect to AAD
 $Environment = "AzureCloud"
